@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"io"
 	"log"
@@ -11,7 +12,8 @@ import (
 func main() {
 
 	// define origin server URL
-	originServerURL, err := url.Parse("http://127.0.0.1:2999")
+	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	originServerURL, err := url.Parse("https://127.0.0.1:2999")
 	if err != nil {
 		log.Fatal("invalid origin server URL")
 	}
